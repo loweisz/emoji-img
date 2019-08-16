@@ -4,7 +4,7 @@ const emojis = {
   three: "👏",
   four: "👍",
   five: "🤘",
-}
+};
 
 const skins = [
   "🏿",
