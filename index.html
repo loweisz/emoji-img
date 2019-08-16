@@ -16,14 +16,15 @@
   <div class="control_panel">
       <input type="file"/>
       <button>Generate</button>
-      <select id="emojis">
+      <label>choose the emoji</label>
+      <select id="emojis" class="selector">
         <option value="one">👐</option>
         <option value="two">🙌</option>
         <option value="three">👏</option>
         <option value="four">👍</option>
         <option value="five">🤘</option>
       </select>
-      <input id="num" type="number" max="1000" min="1" />
+      <label>Choose the emoji amount per line</label><input id="num" class="selector" type="number" max="1000" min="1" />
   </div>
   <canvas id="screen"></canvas>
   <script src="script.js"></script>

@@ -1,4 +1,5 @@
 body {
+
   background-color: #d1d1d1;
 }
 
@@ -7,3 +8,12 @@ body {
   background: #aaaaaa;
   border-radius: 5px;
 }
+
+.selector {
+  font-size: 20px;
+}
+
+input, button, .selector, .control_panel {
+  font-size: 15px;
+}
+
