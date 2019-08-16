@@ -1,16 +1,24 @@
-const emojis = [
-  "👌🏿",
-  "👌🏾",
-  "👌🏽",
-  "👌🏼",
-  "👌🏻"
+const emojis = {
+  one: "👐",
+  two: "🙌",
+  three: "👏",
+  four: "👍",
+  five: "🤘",
+}
+
+const skins = [
+  "🏿",
+  "🏾",
+  "🏽",
+  "🏼",
+  "🏻"
 ];
 
 const config = {
   size: 1000,
   elementSize: 10,
-  elementCount: emojis.length - 1,
-  backgroundColor: 'green',
+  elementCount: skins.length - 1,
+  backgroundColor: 'black',
   get lineCount() {
     return Math.floor(this.size / this.elementSize);
   }
@@ -26,54 +34,36 @@ function calcGreyArr(imageData) {
 
 function calcIndexArr(imageData) {
   const greyArr = calcGreyArr(imageData);
-  console.log(greyArr.length);
+  const { elementSize, elementCount } = config;
   const indexArr = [];
-  for (let y = 0; y < Math.sqrt(greyArr.length); y += config.elementSize) {
-    for (let x = 0; x < Math.sqrt(greyArr.length); x+=config.elementSize) {
+  for (let y = 0; y < Math.sqrt(greyArr.length); y += elementSize) {
+    for (let x = 0; x < Math.sqrt(greyArr.length); x+= elementSize) {
       let sum = 0;
-      for (let i = 0; i < config.elementSize; i++) {
-        for (let j = 0; j < config.elementSize; j++) {
-        
+      for (let i = 0; i < elementSize; i++) {
+        for (let j = 0; j < elementSize; j++) {
           sum += greyArr[x + (y*Math.sqrt(greyArr.length)) + i + (j*Math.sqrt(greyArr.length))]
         }
       }
-      indexArr.push(Math.round(sum/(config.elementSize**2)/(1/config.elementCount)));
+      indexArr.push(Math.round(sum/(elementSize**2)/(1/elementCount)));
     }
   }
-  console.log(indexArr);
   return indexArr
 }
 
-function drawImage(indexArr, ctx) {
-  console.log(indexArr.length);
+function drawImage(indexArr, ctx, emoji) {
   for(let i = 0; i < indexArr.length; i++) {
-    drawEmoji(i, ctx, indexArr)
-    // drawGreyPixel(i, ctx, indexArr)
+    const emojiText = `${emoji}${skins[indexArr[i]]}`;
+    ctx.font = `${config.elementSize}px Arial`;
+    ctx.fillText(
+      emojiText,
+      Math.floor(i%config.lineCount)*config.elementSize,
+      Math.floor(i/config.lineCount)*config.elementSize
+    );
   }
-  
 }
 
-function drawGreyPixel(i, ctx, arr) {
- ctx.fillStyle = colors[arr[i]];
- ctx.fillRect(
-   Math.floor(i%config.lineCount)*config.elementSize,
-   Math.floor(i/config.lineCount)*config.elementSize,
-   config.size,
-   config.size
- )
-}
-
-function drawEmoji(i, ctx, arr) {
-  ctx.font = `${config.elementSize}px Arial`;
-  ctx.fillText(
-    emojis[arr[i]],
-    Math.floor(i%config.lineCount)*config.elementSize,
-    Math.floor(i/config.lineCount)*(config.elementSize)
-  );
-}
-
-function render(imageData) {
-  const c = document.createElement('canvas');
+function render(imageData, emoji) {
+  const c = document.getElementById('screen');
   c.style.width = '100vmin';
   c.style.height = '100vmin';
   c.width = config.size;
@@ -82,20 +72,24 @@ function render(imageData) {
   const ctx = c.getContext('2d');
   ctx.fillStyle = config.backgroundColor;
   const greyIndexArr = calcIndexArr(imageData);
-  drawImage(greyIndexArr, ctx)
+  drawImage(greyIndexArr, ctx, emoji)
 }
 
 document.querySelector('button').addEventListener('click', async () => {
   try {
     const f = document.querySelector('input').files[0];
-    console.log(f);
     const buffer = await new Response(f).arrayBuffer();
     const type = f.name.endsWith(".png") ? "png" : "jpeg";
     const blob = new Blob([buffer], {type: `image/${type}`});
     const bitmap = await createImageBitmap(blob);
-    const imagedata = toImageData(bitmap);
-    render(imagedata)
-    
+    const imageData = toImageData(bitmap);
+    const selectedEmoji = emojis[document.querySelector('select').value] || emojis[0];
+    const num = document.getElementById('num').value;
+    if (num && num < 1000 && num > 0) {
+      config.elementSize = Math.floor(config.size / num)
+    }
+    console.log(config.elementSize);
+    render(imageData, selectedEmoji)
   } catch(e) {
     console.error(e);
   }

@@ -1,3 +1,9 @@
 body {
-  background-color: blue;
+  background-color: #d1d1d1;
+}
+
+.control_panel {
+  padding: 20px;
+  background: #aaaaaa;
+  border-radius: 5px;
 }
