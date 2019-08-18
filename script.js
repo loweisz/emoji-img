@@ -24,33 +24,6 @@ const config = {
   }
 };
 
-function calcGreyArr(imageData) {
-  let arr = [];
-  for (let i = 0; i < imageData.data.length; i+=4) {
-    arr.push((imageData.data[i]*0.3 + imageData.data[i+1]*0.59 + imageData.data[i+2]*0.11)/255)
-  }
-  return arr;
-}
-
-function calcIndexArr(imageData) {
-  const greyArr = calcGreyArr(imageData);
-  const { elementSize, elementCount } = config;
-  const sqrtArr = Math.floor(Math.sqrt(greyArr.length));
-  const indexArr = [];
-  for (let y = 0; y < sqrtArr; y += elementSize) {
-    for (let x = 0; x < sqrtArr; x+= elementSize) {
-      let sum = 0;
-      for (let i = 0; i < elementSize; i++) {
-        for (let j = 0; j < elementSize; j++) {
-          sum += greyArr[x + (y*sqrtArr) + i + (j*sqrtArr)]
-        }
-      }
-      indexArr.push(Math.round(sum/(elementSize**2)/(1/elementCount)));
-    }
-  }
-  return indexArr
-}
-
 function drawImage(indexArr, ctx, emoji) {
   for(let i = 0; i < indexArr.length; i++) {
     const emojiText = `${emoji}${skins[indexArr[i]]}`;
@@ -71,8 +44,12 @@ function render(imageData, emoji) {
   c.height = config.size;
   const ctx = c.getContext('2d');
   ctx.fillStyle = config.backgroundColor;
-  const greyIndexArr = calcIndexArr(imageData);
-  drawImage(greyIndexArr, ctx, emoji)
+  const worker = new Worker('worker.js');
+  worker.postMessage([imageData, config]);
+  worker.onmessage = function(e) {
+    const greyIndexArr = e.data;
+    drawImage(greyIndexArr, ctx, emoji)
+  };
 }
 
 document.querySelector('form').addEventListener('submit', async (e) => {
@@ -87,7 +64,7 @@ document.querySelector('form').addEventListener('submit', async (e) => {
     const selectedEmoji = emojis[document.querySelector('select').value] || emojis[0];
     const num = document.getElementById('num').value;
     if (num && num < 1000 && num > 0) {
-      config.elementSize = Math.ceil(config.size / num)
+      config.elementSize = Math.ceil(config.size / num);
       console.log(config.elementSize);
     }
     render(imageData, selectedEmoji)
