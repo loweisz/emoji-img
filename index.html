@@ -13,20 +13,24 @@
 </head>
 
 <body>
-  <div class="control_panel">
-      <input type="file"/>
-      <button>Generate</button>
-      <label>choose the emoji</label>
-      <select id="emojis" class="selector">
-        <option value="one">👐</option>
-        <option value="two">🙌</option>
-        <option value="three">👏</option>
-        <option value="four">👍</option>
-        <option value="five">🤘</option>
-      </select>
-      <label>Choose the emoji amount per line</label><input id="num" class="selector" type="number" max="1000" min="1" />
-  </div>
-  <canvas id="screen"></canvas>
+    <div>
+        <form class="control_panel">
+            <input type="file"/>
+            <label>choose the emoji</label>
+            <select id="emojis" class="selector">
+                <option value="one">👐</option>
+                <option value="two">🙌</option>
+                <option value="three">👏</option>
+                <option value="four">👍</option>
+                <option value="five">🤘</option>
+            </select>
+            <label>Choose the emoji amount per line</label>
+            <input id="num" class="selector" type="number" max="1000" min="1" />
+            <button type="submit">Generate</button>
+        </form>
+    </div>
+    <div class="img_wrapper"><canvas id="screen"></canvas></div>
+
   <script src="script.js"></script>
 
 

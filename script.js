@@ -20,7 +20,7 @@ const config = {
   elementCount: skins.length - 1,
   backgroundColor: 'black',
   get lineCount() {
-    return Math.floor(this.size / this.elementSize);
+    return Math.ceil(this.size / this.elementSize);
   }
 };
 
@@ -35,13 +35,14 @@ function calcGreyArr(imageData) {
 function calcIndexArr(imageData) {
   const greyArr = calcGreyArr(imageData);
   const { elementSize, elementCount } = config;
+  const sqrtArr = Math.floor(Math.sqrt(greyArr.length));
   const indexArr = [];
-  for (let y = 0; y < Math.sqrt(greyArr.length); y += elementSize) {
-    for (let x = 0; x < Math.sqrt(greyArr.length); x+= elementSize) {
+  for (let y = 0; y < sqrtArr; y += elementSize) {
+    for (let x = 0; x < sqrtArr; x+= elementSize) {
       let sum = 0;
       for (let i = 0; i < elementSize; i++) {
         for (let j = 0; j < elementSize; j++) {
-          sum += greyArr[x + (y*Math.sqrt(greyArr.length)) + i + (j*Math.sqrt(greyArr.length))]
+          sum += greyArr[x + (y*sqrtArr) + i + (j*sqrtArr)]
         }
       }
       indexArr.push(Math.round(sum/(elementSize**2)/(1/elementCount)));
@@ -68,14 +69,14 @@ function render(imageData, emoji) {
   c.style.height = '100vmin';
   c.width = config.size;
   c.height = config.size;
-  document.body.appendChild(c);
   const ctx = c.getContext('2d');
   ctx.fillStyle = config.backgroundColor;
   const greyIndexArr = calcIndexArr(imageData);
   drawImage(greyIndexArr, ctx, emoji)
 }
 
-document.querySelector('button').addEventListener('click', async () => {
+document.querySelector('form').addEventListener('submit', async (e) => {
+  e.preventDefault();
   try {
     const f = document.querySelector('input').files[0];
     const buffer = await new Response(f).arrayBuffer();
@@ -86,9 +87,9 @@ document.querySelector('button').addEventListener('click', async () => {
     const selectedEmoji = emojis[document.querySelector('select').value] || emojis[0];
     const num = document.getElementById('num').value;
     if (num && num < 1000 && num > 0) {
-      config.elementSize = Math.floor(config.size / num)
+      config.elementSize = Math.ceil(config.size / num)
+      console.log(config.elementSize);
     }
-    console.log(config.elementSize);
     render(imageData, selectedEmoji)
   } catch(e) {
     console.error(e);
