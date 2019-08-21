@@ -1,31 +1,31 @@
+const emojis = {
+  one: "👐",
+  two: "🙌",
+  three: "👏",
+  four: "👍",
+  five: "🤘",
+};
+
+const skins = [
+  "🏿",
+  "🏾",
+  "🏽",
+  "🏼",
+  "🏻"
+];
+
 const config = {
   size: 1000,
   elementSize: 10,
+  elementCount: skins.length - 1,
   get lineCount() {
     return Math.ceil(this.size / this.elementSize);
-  },
-  skins: [
-    "🏿",
-    "🏾",
-    "🏽",
-    "🏼",
-    "🏻"
-  ],
-  emojis = {
-    one: "👐",
-    two: "🙌",
-    three: "👏",
-    four: "👍",
-    five: "🤘",
-  },
-  get elementCount() {
-    return this.skins.length - 1
-  },
+  }
 };
 
 function drawImage(indexArr, ctx, emoji) {
   for(let i = 0; i < indexArr.length; i++) {
-    const emojiText = `${emoji}${config.skins[indexArr[i]]}`;
+    const emojiText = `${emoji}${skins[indexArr[i]]}`;
     ctx.font = `${config.elementSize}px Arial`;
     ctx.fillText(
       emojiText,
@@ -58,7 +58,7 @@ document.querySelector('form').addEventListener('submit', async (e) => {
     const blob = new Blob([buffer], {type: `image/${type}`});
     const bitmap = await createImageBitmap(blob);
     const imageData = toImageData(bitmap);
-    const selectedEmoji = config.emojis[document.querySelector('select').value] || config.emojis[0];
+    const selectedEmoji = emojis[document.querySelector('select').value] || emojis[0];
     const num = document.getElementById('num').value;
     if (num && num < 1000 && num > 0) {
       config.elementSize = Math.ceil(config.size / num);
