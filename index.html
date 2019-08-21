@@ -14,23 +14,32 @@
 
 <body>
     <div>
+        <h1>EMOJI IMAGE GENERATOR</h1>
         <form class="control_panel">
-            <input type="file"/>
-            <label>choose the emoji</label>
-            <select id="emojis" class="selector">
-                <option value="one">👐</option>
-                <option value="two">🙌</option>
-                <option value="three">👏</option>
-                <option value="four">👍</option>
-                <option value="five">🤘</option>
-            </select>
-            <label>Choose the emoji amount per line</label>
-            <input id="num" class="selector" type="number" max="1000" min="1" />
+            <label>
+                Image:
+                <input class="input_file" type="file"/>
+            </label>
+            <label>
+                Emoji:
+                <select id="emojis" class="selector">
+                    <option value="one">👐</option>
+                    <option value="two">🙌</option>
+                    <option value="three">👏</option>
+                    <option value="four">👍</option>
+                    <option value="five">🤘</option>
+                </select>
+
+            </label>
+            <label>
+                Emojis per line:
+                <input id="num" class="selector" type="number" max="1000" min="1" />
+            </label>
             <button type="submit">Generate</button>
         </form>
     </div>
     <div class="img_wrapper"><canvas id="screen"></canvas></div>
-
+    <footer>v0.0.1</footer>
   <script src="script.js"></script>
 
 

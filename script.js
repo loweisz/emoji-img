@@ -18,7 +18,6 @@ const config = {
   size: 1000,
   elementSize: 10,
   elementCount: skins.length - 1,
-  backgroundColor: 'black',
   get lineCount() {
     return Math.ceil(this.size / this.elementSize);
   }
@@ -43,12 +42,10 @@ function render(imageData, emoji) {
   c.width = config.size;
   c.height = config.size;
   const ctx = c.getContext('2d');
-  ctx.fillStyle = config.backgroundColor;
   const worker = new Worker('worker.js');
   worker.postMessage([imageData, config]);
   worker.onmessage = function(e) {
-    const greyIndexArr = e.data;
-    drawImage(greyIndexArr, ctx, emoji)
+    drawImage(e.data, ctx, emoji)
   };
 }
 
@@ -65,7 +62,6 @@ document.querySelector('form').addEventListener('submit', async (e) => {
     const num = document.getElementById('num').value;
     if (num && num < 1000 && num > 0) {
       config.elementSize = Math.ceil(config.size / num);
-      console.log(config.elementSize);
     }
     render(imageData, selectedEmoji)
   } catch(e) {
@@ -79,6 +75,5 @@ function toImageData(bitmap) {
   c.height = config.size;
   const ctx = c.getContext('2d');
   ctx.drawImage(bitmap, 0, 0, bitmap.width, bitmap.height, 0, 0, config.size, config.size);
-  
   return ctx.getImageData(0, 0, config.size, config.size);
 }
