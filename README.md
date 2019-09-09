@@ -3,7 +3,8 @@
 #### 🚦 Version 0.2.0
 
 Transform EVERY image you have in an in a  emoji shaded picture.
-You can even choose between currently 10 emojis (🤟👍🙌👐👏👊✊👌🤲🖕 more to come).
+You can even choose between currently 10 emojis 
+#####🤟👍🙌👐👏👊✊👌🤲🖕 more to come.
 And transform EVERY image (only png and jpg) in an emoji representation.
 It works 100% on the client side, so you don't need to be afraid that you data is been stored anywhere.
 
