@@ -2,8 +2,8 @@
 
 #### 🚦 Version 0.2.0
 
-Transform EVERY image you have in an in a  emoji shaded picture.
-You can even choose between currently 10 emojis
+Transform EVERY image you have in an emoji shaded picture.
+You can even choose between currently 10 emojis:
 
 #### 🤟👍🙌👐👏👊✊👌🤲🖕 more to come.
 
