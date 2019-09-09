@@ -1,5 +1,5 @@
 body {
-  background-color: #d1d1d1;
+  background-color: #f7ab94;
   font-family: sans-serif;
 }
 
@@ -13,6 +13,8 @@ button {
 }
 
 select {
+  width: 80px;
+  height: 60px;
   background-color: white;
   font-size: 40px;
   border: 1px solid black;
@@ -42,6 +44,19 @@ h1 {
   text-align: center;
 }
 
+header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  color: rgb(63, 63, 63);
+  margin: 15px 0;
+}
+
 footer {
   text-align: end;
   margin-right: 50px;
@@ -55,10 +70,16 @@ footer {
   background: #ddd;
   border-radius: 5px;
   display: grid;
-  grid-template-columns: 1fr auto 1fr 1fr 1fr;
-  grid-gap: 30px;
-  justify-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 17px 70px;
+  /* justify-items: center; */
   align-items: center;
+}
+
+@media (max-width: 850px) {
+  .control_panel {
+    grid-template-columns: 1fr;
+  }
 }
 
 .img_wrapper {
