@@ -6,18 +6,26 @@ onmessage = function(e) {
 
 function calcIndexArr(imageData, config) {
   const greyArr = calcGreyArr(imageData);
-  const { elementSize, elementCount } = config;
-  const sqrtArr = Math.floor(Math.sqrt(greyArr.length));
+  const { elementSize, elementCount, size } = config;
   const indexArr = [];
-  for (let y = 0; y < sqrtArr; y += elementSize) {
-    for (let x = 0; x < sqrtArr; x+= elementSize) {
-      let sum = 0;
-      for (let i = 0; i < elementSize; i++) {
-        for (let j = 0; j < elementSize; j++) {
-          sum += greyArr[x + (y*sqrtArr) + i + (j*sqrtArr)]
-        }
+  let pointer = 0;
+  let xLinePosition = 0;
+  const blockLineCount = size*elementSize;
+  while(pointer < greyArr.length) {
+    let sum = 0;
+    for (let i = 0; i < elementSize; i++) {
+      for (let j = 0; j < elementSize; j++) {
+        const index = pointer + j + (size*i);
+        sum += greyArr[index]
       }
-      indexArr.push(Math.round(sum/(elementSize**2)/(1/elementCount)));
+    }
+    indexArr.push(Math.round(sum/(elementSize**2)/(1/elementCount)));
+    if (xLinePosition >= (size/elementSize) - 1) {
+      pointer += blockLineCount - (size - elementSize);
+      xLinePosition = 0;
+    } else {
+      pointer += elementSize;
+      xLinePosition++;
     }
   }
   return indexArr
