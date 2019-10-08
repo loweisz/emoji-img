@@ -42,33 +42,33 @@ function drawImage(indexArr, ctx, emoji) {
 
 function render(imageData, emoji) {
   const c = document.getElementById('screen');
-  c.style.width = '100vmin';
-  c.style.height = '100vmin';
+  c.style = {
+    ...c.style,
+    width: '100vmin',
+    height: '100vmin',
+  };
   c.width = config.size;
   c.height = config.size;
-  const ctx = c.getContext('2d');
   const worker = new Worker('worker.js');
   worker.postMessage([imageData, config]);
   worker.onmessage = function(e) {
-    drawImage(e.data, ctx, emoji)
+    drawImage(e.data, c.getContext('2d'), emoji)
   };
 }
 
 document.querySelector('form').addEventListener('submit', async (e) => {
   e.preventDefault();
   try {
-    const f = document.querySelector('input').files[0];
-    const buffer = await new Response(f).arrayBuffer();
-    const type = f.name.endsWith(".png") ? "png" : "jpeg";
+    const fileReader = document.querySelector('input').files[0];
+    const buffer = await new Response(fileReader).arrayBuffer();
+    const type = fileReader.name.endsWith(".png") ? "png" : "jpeg";
     const blob = new Blob([buffer], {type: `image/${type}`});
     const bitmap = await createImageBitmap(blob);
-    const imageData = toImageData(bitmap);
-    const selectedEmoji = emojis[document.querySelector('select').value] || emojis[0];
     const num = document.getElementById('num').value;
     if (num && num < 1000 && num > 0) {
       config.elementSize = Math.ceil(config.size / num);
     }
-    render(imageData, selectedEmoji)
+    render(toImageData(bitmap), emojis[document.querySelector('select').value] || emojis[0])
   } catch(e) {
     console.error(e);
   }

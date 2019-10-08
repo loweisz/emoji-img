@@ -10,18 +10,17 @@ function calcIndexArr(imageData, config) {
   const indexArr = [];
   let pointer = 0;
   let xLinePosition = 0;
-  const blockLineCount = size*elementSize;
+  
   while(pointer < greyArr.length) {
     let sum = 0;
     for (let i = 0; i < elementSize; i++) {
       for (let j = 0; j < elementSize; j++) {
-        const index = pointer + j + (size*i);
-        sum += greyArr[index]
+        sum += greyArr[pointer + j + (size*i)]
       }
     }
     indexArr.push(Math.round(sum/(elementSize**2)/(1/elementCount)));
     if (xLinePosition >= (size/elementSize) - 1) {
-      pointer += blockLineCount - (size - elementSize);
+      pointer += (size*elementSize) - (size - elementSize);
       xLinePosition = 0;
     } else {
       pointer += elementSize;
