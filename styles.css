@@ -1,7 +1,7 @@
 body {
-  /*background-color: #f7ab94;*/
+  background-color: #333;
   font-family: sans-serif;
-  color: #333
+  color: #eee
 }
 
 button {
@@ -65,7 +65,7 @@ header > h1 {
 }
 
 a {
-  color: rgb(63, 63, 63);
+  color: #dbab2a;
   margin: 15px 0;
 }
 
@@ -76,9 +76,9 @@ footer {
 }
 
 .control_panel {
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  /*box-shadow: 0 3px 6px rgba(255,255,255,0.16), 0 3px 6px rgba(255,255,255,0.23);*/
   padding: 20px;
-
+  color: #333333;
   background: #ddd;
   border-radius: 5px;
   display: grid;
@@ -97,7 +97,7 @@ footer {
 }
 
 .img_wrapper {
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(255,255,255,0.16), 0 3px 6px rgba(255,255,255,0.23);
   display: flex;
   justify-content: center;
   align-items: center;
