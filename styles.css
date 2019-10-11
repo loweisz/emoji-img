@@ -97,7 +97,7 @@ footer {
 }
 
 .img_wrapper {
-  box-shadow: 0 3px 6px rgba(255,255,255,0.16), 0 3px 6px rgba(255,255,255,0.23);
+  /*box-shadow: 0 3px 6px rgba(255,255,255,0.16), 0 3px 6px rgba(255,255,255,0.23);*/
   display: flex;
   justify-content: center;
   align-items: center;
