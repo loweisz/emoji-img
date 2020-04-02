@@ -1,66 +1,77 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="en">
-<head>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148500892-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'UA-148500892-1');
-  </script>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-148500892-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-148500892-1");
+    </script>
 
-  <meta charset="utf-8">
-
-  <title>🤘Fun Emoji Image Generator👏</title>
-  <meta name="description" content="Image Emoji Generator">
-  <meta name="author" content="SitePoint">
-
-  <link rel="stylesheet" href="styles.css">
-
-</head>
-
-<body>
+    <meta charset="utf-8" />
+    <title>🤘Fun Emoji Image Generator👏</title>
+    <meta name="description" content="Image Emoji Generator" />
+    <meta name="author" content="SitePoint" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div class="content">
-        <div>
-            <header>
-                <h1>🤘Emoji Image Generator👏</h1>
-                <span>👐 made by <a target="_blank" href="https://twitter.com/lorenzweisz">Lorenz</a></span>
-                <a target="_blank" href="https://github.com/lowe1111/emoji-img">View on Github</a>
-            </header>
-            <form class="control_panel">
-                <label>
-                    <span>Image:</span>
-                    <input class="input_file" type="file"/>
-                </label>
-                <label>
-                    <span>Emoji:</span>
-                    <select id="emojis" class="selector">
-                        <option value="one">👐</option>
-                        <option value="two">🙌</option>
-                        <option value="three">👏</option>
-                        <option value="four">👍</option>
-                        <option value="five">🤘</option>
-                        <option value="six">👊</option>
-                        <option value="seven">✊</option>
-                        <option value="eight">👌</option>
-                        <option value="nine">🤲</option>
-                        <option value="ten">🖕</option>
-                    </select>
-
-                </label>
-                <label>
-                    <span>Emojis per line:</span>
-                    <input id="num" class="selector" type="number" max="1000" min="1" />
-                </label>
-                <button type="submit">Generate</button>
-            </form>
-        </div>
-        <div class="img_wrapper"><canvas id="screen"></canvas></div>
+      <div>
+        <header>
+          <h1>🤘Emoji Image Generator👏</h1>
+          <span
+            >👐 made by
+            <a target="_blank" href="https://twitter.com/lorenzweisz"
+              >Lorenz</a
+            ></span
+          >
+          <a target="_blank" href="https://github.com/lowe1111/emoji-img"
+            >View on Github</a
+          >
+        </header>
+        <form class="control_panel">
+          <label>
+            <span>Image:</span>
+            <input name="file" class="input_file" type="file" />
+          </label>
+          <label>
+            <span>Emoji:</span>
+            <select name="emojis" class="selector">
+              <option value="one">👐</option>
+              <option value="two">🙌</option>
+              <option value="three">👏</option>
+              <option value="four">👍</option>
+              <option value="five">🤘</option>
+              <option value="six">👊</option>
+              <option value="seven">✊</option>
+              <option value="eight">👌</option>
+              <option value="nine">🤲</option>
+              <option value="ten">🖕</option>
+            </select>
+          </label>
+          <label>
+            <span>Emojis per line:</span>
+            <input
+              name="num"
+              class="selector"
+              type="number"
+              max="1000"
+              min="1"
+            />
+          </label>
+          <button type="submit">Generate</button>
+        </form>
+      </div>
+      <div class="img_wrapper"><canvas id="screen"></canvas></div>
     </div>
-    <script src="script.js"></script>
-
-
-</body>
+    <script src="index.js"></script>
+  </body>
 </html>
