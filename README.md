@@ -18,7 +18,10 @@ Its build only for Chrome and Firefox
 
 You can find a live version here: https://img.loomaa.de/
 
-Or run it locally on your machine with a web server of your choice !
+Or run it locally with
+```
+npm start
+```
 
 The best thing is YOU decide how many emojis you want to be set per row.
 The Maxiumum is 1000 per row and the default is 100. 
