@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "parcel src/index.html",
+    "start": "tsc --noEmit && parcel src/index.html && tsc --noEmit",
     "build": "parcel build src/index.html"
   },
   "devDependencies": {
