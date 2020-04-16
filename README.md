@@ -10,10 +10,6 @@ You can even choose between currently 10 emojis:
 And transform EVERY image (only png and jpg) in an emoji representation.
 It works 100% on the client side, so you don't need to be afraid that you data is been stored anywhere.
 
-### 🖥️ Browser Support
-
-Its build only for Chrome and Firefox
-
 ### 🏄‍♂️ Make it run
 
 You can find a live version here: https://img.loomaa.de/
