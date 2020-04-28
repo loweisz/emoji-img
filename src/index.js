@@ -8,7 +8,7 @@ const emojis = {
   seven: "✊",
   eight: "👌",
   nine: "🤲",
-  ten: "🖕"
+  ten: "🖕",
 };
 
 const skins = ["🏿", "🏾", "🏽", "🏼", "🏻"];
@@ -19,10 +19,11 @@ const config = {
   elementCount: skins.length - 1,
   get lineCount() {
     return Math.ceil(this.size / this.elementSize);
-  }
+  },
 };
 
 function drawImage(indexArr, ctx, emoji) {
+  ctx.font = `${config.elementSize}px Georgia`;
   for (const [i, v] of indexArr.entries()) {
     ctx.fillText(
       `${emoji}${skins[v || 0]}`,
@@ -37,14 +38,14 @@ function render(imageData, emoji) {
   c.style = {
     ...c.style,
     width: "100vmin",
-    height: "100vmin"
+    height: "100vmin",
   };
   c.width = config.size;
   c.height = config.size;
   const worker = new Worker("worker.js");
   worker.postMessage([imageData, config]);
   // calculate the emojis
-  worker.onmessage = function(e) {
+  worker.onmessage = function (e) {
     drawImage(e.data, c.getContext("2d"), emoji);
   };
 }
